@@ -17,11 +17,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        repository: https://github.com/JimmyTournemaine/ha-core.git
-        path: ha-core
+        repository: JimmyTournemaine/ha-core
+        path: ${{ github.repository }}/ha-core
     - uses: actions/checkout@v4
       with:
-        path: ha-knocki
+        path: ${{ github.repository }}/ha-knocki
     - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
