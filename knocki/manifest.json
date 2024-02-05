@@ -1,7 +1,6 @@
 {
   "domain": "knocki",
   "name": "Knocki",
-  "version": "0.1",
   "codeowners": [
     "@JimmyTournemaine"
   ],
@@ -12,5 +11,6 @@
   "iot_class": "assumed_state",
   "requirements": [],
   "ssdp": [],
+  "version": "0.1",
   "zeroconf": []
 }
