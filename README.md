@@ -1,5 +1,7 @@
 # Knocki integration for Home Assistant
 
+⚠️⚠️⚠️ This knocki integration is still a work in progress ⚠️⚠️⚠️
+
 [Knocki](http://knocki.com/) is a small wireless smart device that transforms ordinary surfaces into touch controls.
 The Knocki developer do not provider any Open API yet.
 
