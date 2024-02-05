@@ -23,6 +23,11 @@ jobs:
     - uses: actions/checkout@v4
       with:
         path: ${{ github.workspace }}/ha-knocki
+    - name: Merge ha-knocki in core
+      run: |
+        ln -s "${{ github.workspace }}/ha-knocki/knocki" "${{ github.workspace }}/ha-core/homeassistant/components/knocki"
+        ln -s "${{ github.workspace }}/ha-knocki/tests" "${{ github.workspace }}/ha-core/tests/components/knocki"
+      # ln -s "${{ github.workspace }}/ha-knocki/blueprints/automation" "${{ github.workspace }}/ha-core/config/blueprints/automation/knocki"
     - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
@@ -30,14 +35,12 @@ jobs:
     - name: Run HA setup script
       run: |
         script/setup
-        source venv/bin/activate
-        pip3 install -r requirements_test_all.txt
       working-directory: ${{ github.workspace }}/ha-core
-    - name: Merge ha-knocki in core
+    - name: Install test dependencies
       run: |
-        ln -s "${{ github.workspace }}/ha-knocki/knocki" "${{ github.workspace }}/ha-core/homeassistant/components/knocki"
-        ln -s "${{ github.workspace }}/ha-knocki/tests" "${{ github.workspace }}/ha-core/tests/components/knocki"
-      # ln -s "${{ github.workspace }}/ha-knocki/blueprints/automation" "${{ github.workspace }}/ha-core/config/blueprints/automation/knocki"
+        source venv/bin/activate
+        pip3 install -r requirements_test.txt
+      working-directory: ${{ github.workspace }}/ha-core
     - name: Test with pytest
       run: |
         source venv/bin/activate
