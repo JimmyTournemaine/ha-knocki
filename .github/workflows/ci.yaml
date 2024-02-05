@@ -18,10 +18,10 @@ jobs:
     - uses: actions/checkout@v4
       with:
         repository: JimmyTournemaine/ha-core
-        path: ${{ github.repository }}/ha-core
+        path: ${{ github.workspace }}/ha-core
     - uses: actions/checkout@v4
       with:
-        path: ${{ github.repository }}/ha-knocki
+        path: ${{ github.workspace }}/ha-knocki
     - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
@@ -31,7 +31,7 @@ jobs:
       working-directory: ./ha-core
     - name: Merge ha-knocki in core
       run: |
-        ln -s "${{ github.repository }}/ha-knocki/knocki" "${{ github.repository }}/ha-core/homeassistant/components/knocki"
-        ln -s "${{ github.repository }}/ha-knocki/tests" "${{ github.repository }}/ha-core/tests/components/knocki"
-      # ln -s "${{ github.repository }}/ha-knocki/blueprints/automation" "${{ github.repository }}/ha-core/config/blueprints/automation/knocki"
+        ln -s "${{ github.workspace }}/ha-knocki/knocki" "${{ github.workspace }}/ha-core/homeassistant/components/knocki"
+        ln -s "${{ github.workspace }}/ha-knocki/tests" "${{ github.workspace }}/ha-core/tests/components/knocki"
+      # ln -s "${{ github.workspace }}/ha-knocki/blueprints/automation" "${{ github.workspace }}/ha-core/config/blueprints/automation/knocki"
     
