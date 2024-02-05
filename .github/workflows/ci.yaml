@@ -1,11 +1,12 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Python application
+name: Testing and Linting
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - develop
+      - hotfix/*
+      - release/*
   pull_request:
 
 permissions:
@@ -28,10 +29,16 @@ jobs:
         python-version: "3.12"
     - name: Run HA setup script
       run: script/setup
-      working-directory: ./ha-core
+      working-directory: ${{ github.workspace }}/ha-core
     - name: Merge ha-knocki in core
       run: |
         ln -s "${{ github.workspace }}/ha-knocki/knocki" "${{ github.workspace }}/ha-core/homeassistant/components/knocki"
         ln -s "${{ github.workspace }}/ha-knocki/tests" "${{ github.workspace }}/ha-core/tests/components/knocki"
       # ln -s "${{ github.workspace }}/ha-knocki/blueprints/automation" "${{ github.workspace }}/ha-core/config/blueprints/automation/knocki"
-    
+    - name: Test with pytest
+      run: pytest tests/components/knocki --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+      working-directory: ${{ github.workspace }}/ha-core
+    - name: Lint with Ruff
+      run: ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki
+      working-directory: ${{ github.workspace }}/ha-core
+      continue-on-error: true
