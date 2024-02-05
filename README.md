@@ -3,7 +3,7 @@
 ![stability-wip](https://img.shields.io/badge/stability-wip-orange.svg)
 ![issues](https://img.shields.io/github/issues/JimmyTournemaine/ha-knocki)
 ![license](https://img.shields.io/github/license/JimmyTournemaine/ha-knocki)
-![gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square)
+![gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)
 
 [Knocki](http://knocki.com/) is a small wireless smart device that transforms ordinary surfaces into touch controls.
 The Knocki developer do not provider any Open API yet.
