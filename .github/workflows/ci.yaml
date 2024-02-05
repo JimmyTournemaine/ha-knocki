@@ -38,13 +38,11 @@ jobs:
     - name: Test with pytest
       run: |
         source venv/bin/activate
-        pip install pytest pytest-cov
         pytest tests/components/knocki --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
       working-directory: ${{ github.workspace }}/ha-core
     - name: Lint with Ruff
       run: |
         source venv/bin/activate
-        pip install ruff
         ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki
       working-directory: ${{ github.workspace }}/ha-core
       continue-on-error: true
