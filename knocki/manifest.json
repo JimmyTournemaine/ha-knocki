@@ -1,6 +1,7 @@
 {
   "domain": "knocki",
   "name": "Knocki",
+  "version": "0.1",
   "codeowners": [
     "@JimmyTournemaine"
   ],

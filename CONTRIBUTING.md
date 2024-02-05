@@ -13,7 +13,7 @@ Then, from your development container:
 
 ```bash
 git clone git@<your-fork> /workspaces/ha-knocki
-ln -s /workspaces/ha-knocki/src /workspaces/ha-core/homeassistant/components/knocki
+ln -s /workspaces/ha-knocki/knocki /workspaces/ha-core/homeassistant/components/knocki
 ln -s /workspaces/ha-knocki/tests /workspaces/ha-core/tests/components/knocki
 ln -s /workspaces/ha-knocki/blueprints/automation/ /workspaces/ha-core/config/blueprints/automation/knocki
 ```
