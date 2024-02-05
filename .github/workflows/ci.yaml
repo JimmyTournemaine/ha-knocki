@@ -38,8 +38,10 @@ jobs:
       working-directory: ${{ github.workspace }}/ha-core
     - name: Install test dependencies
       run: |
+        apt-get install -y python-dev pkg-config
+        apt-get install -y libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libswresample-dev libavfilter-dev
         source venv/bin/activate
-        pip3 install -r requirements_test.txt
+        pip3 install -r requirements_test_all.txt
       working-directory: ${{ github.workspace }}/ha-core
     - name: Test with pytest
       run: |
