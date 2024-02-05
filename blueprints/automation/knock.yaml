@@ -1,0 +1,43 @@
+blueprint:
+  name: Knock from Knocki
+  description: Automation base on knocki events
+  domain: automation
+  author: "@JimmyTournemaine"
+  input:
+    event_entity:
+      name: The event entity to listen to
+      selector:
+        entity:
+          filter:
+            - domain: event
+    event_type:
+      name: Event type
+      selector:
+        select:
+          options:
+            - 3taps
+            - 4taps
+            - 5taps
+            - 6taps
+            - 2taps_2taps
+            - 2taps_4taps
+            - 2taps_5taps
+            - 2taps_3taps_2taps
+            - 2taps_3taps_3taps
+            - 2taps_3taps_4taps
+    actions:
+      name: Actions
+      selector:
+        action:
+
+trigger:
+  - platform: state
+    entity_id: !input event_entity
+
+condition:
+  - condition: state
+    entity_id: !input event_entity
+    attribute: event_type
+    state: !input event_type
+
+action: !input actions

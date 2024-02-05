@@ -1,0 +1,15 @@
+{
+  "domain": "knocki",
+  "name": "Knocki",
+  "codeowners": [
+    "@JimmyTournemaine"
+  ],
+  "config_flow": true,
+  "dependencies": ["webhook"],
+  "documentation": "https://github.com/JimmyTournemaine/ha-knocki",
+  "homekit": {},
+  "iot_class": "assumed_state",
+  "requirements": [],
+  "ssdp": [],
+  "zeroconf": []
+}

@@ -1,0 +1,9 @@
+# python
+__pycache__/
+
+# pytest
+.pytest_cache
+.cache
+
+# generated translations
+translations/
