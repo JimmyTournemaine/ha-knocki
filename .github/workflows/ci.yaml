@@ -66,5 +66,5 @@ jobs:
       uses: MishaKav/pytest-coverage-comment@main
       if: success() || failure()
       with:
-        pytest-coverage-path: ./ha-core/coverage.xml
+        pytest-xml-coverage-path: ./ha-core/coverage.xml
         junitxml-path: ./ha-core/junit/test-results.xml
