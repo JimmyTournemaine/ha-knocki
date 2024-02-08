@@ -36,21 +36,21 @@ jobs:
       run: |
         script/setup
       working-directory: ./ha-core
-
-    - name: Lint with Ruff
-      run: |
-        source venv/bin/activate
-        ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki
-      working-directory: ./ha-core
     - name: Install test dependencies
-      if: success() || failure()
       run: |
         source venv/bin/activate
         pip3 install -r requirements_test.txt
         pip3 install sqlalchemy
         pip3 install $(cat requirements_all.txt | grep -e ffmpeg== -e zeroconf==)
       working-directory: ./ha-core
+    - name: Lint with Ruff
+      if: success() || failure()
+      run: |
+        source venv/bin/activate
+        ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki
+      working-directory: ./ha-core
     - name: Test with pytest
+      if: success() || failure()
       run: |
         source venv/bin/activate
         pytest tests/components/knocki --doctest-modules --junitxml=junit/test-results.xml --cov=./homeassistant/components/knocki --cov-report=xml
