@@ -56,12 +56,13 @@ jobs:
       if: success() || failure()
       run: |
         source venv/bin/activate
+        set +e
         ruff_output="$(ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki)"
         ruff_exitcode=$?
         echo "$ruff_output" \
           | sed 's|ha-core/homeassistant/components/knocki|ha-knocki/knocki|' \
           | sed 's|homeassistant/components/knocki|knocki|'
-        
+        [ $ruff_exitcode -gt 0 ] && echo "Lint failure" && exit $ruff_exitcode
       working-directory: ./ha-core
     - name: Test with pytest
       if: success() || failure()
