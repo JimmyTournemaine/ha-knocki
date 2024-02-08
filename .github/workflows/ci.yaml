@@ -1,4 +1,4 @@
-name: Testing and Linting
+name: Quality assurance
 
 on:
   push:
@@ -17,6 +17,7 @@ permissions:
 
 jobs:
   qa:
+    name: Test and Lint
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
