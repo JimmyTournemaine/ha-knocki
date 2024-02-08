@@ -58,6 +58,8 @@ jobs:
         source venv/bin/activate
         ruff_output="$(ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki)"
         ruff_exitcode=$?
+        echo "Ruff output is:"
+        echo "$ruff_output"
         echo "$ruff_output" \
           | sed 's|ha-core/homeassistant/components/knocki|ha-knocki/knocki|' \
           | sed 's|homeassistant/components/knocki|knocki|'
