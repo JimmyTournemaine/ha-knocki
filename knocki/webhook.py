@@ -1,5 +1,7 @@
 """Platform for the Knocki integration webhook."""
 
+from http.client import HTTPException
+
 from aiohttp import web
 
 from homeassistant import config_entries
@@ -58,7 +60,7 @@ class KnockiWebhook:
 
             device.knock(payload["gesture"])
 
-        except Exception as ex:
+        except HTTPException as ex:
             LOGGER.error("Error processing webhook payload: %s", ex)
             return web.Response(status=HTTP_BAD_REQUEST)
 

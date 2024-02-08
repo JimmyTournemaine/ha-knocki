@@ -14,12 +14,12 @@
     }
   },
   "options": {
-      "step":{
-        "init": {
-          "data": {
-            "local_only": "Authorize local requests only"
-          }
+    "step": {
+      "init": {
+        "data": {
+          "local_only": "Authorize local requests only"
         }
       }
+    }
   }
 }

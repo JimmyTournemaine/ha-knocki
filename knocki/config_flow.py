@@ -19,6 +19,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def get_data_schema(config_entry: config_entries.ConfigEntry = None):
+    """Get data schema for init or configure steps."""
     schema_on_init = {vol.Required(CONF_NAME): str}
     schema_on_update = {
         vol.Required(
@@ -96,6 +97,8 @@ class NameAlreadyExists(HomeAssistantError):
 
 
 class OptionsFlowHandler(config_entries.OptionsFlow):
+    """Handler for options (reconfigure)."""
+
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialize options flow."""
         self.config_entry = config_entry
