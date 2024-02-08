@@ -42,8 +42,8 @@ jobs:
         source venv/bin/activate
         ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki
       working-directory: ./ha-core
-      continue-on-error: true
     - name: Install test dependencies
+      if: success() || failure()
       run: |
         source venv/bin/activate
         pip3 install -r requirements_test.txt
@@ -57,12 +57,13 @@ jobs:
       working-directory: ./ha-core
     - name: Publish test Report
       uses: mikepenz/action-junit-report@v4
-      if: success() || failure() # always run even if the previous step fails
+      if: success() || failure()
       with:
         report_paths: ./ha-core/junit/test-results.xml
         follow_symlink: true
     - name: Publish coverage report
       uses: MishaKav/pytest-coverage-comment@main
+      if: success() || failure()
       with:
         pytest-coverage-path: ./ha-core/coverage.xml
         junitxml-path: ./ha-core/junit/test-results.xml
