@@ -1,0 +1,83 @@
+name: Quality assurance
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - hotfix/*
+      - release/*
+  pull_request:
+
+permissions:
+  contents: read
+  checks: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  hassfest:
+    name: Hassfest validation
+    runs-on: "ubuntu-latest"
+    steps:
+        - uses: "actions/checkout@v4"
+        - uses: "home-assistant/actions/hassfest@master"
+  qa:
+    name: Test and Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        path: ./ha-knocki
+    - uses: actions/checkout@v4
+      with:
+        repository: JimmyTournemaine/ha-core
+        path: ./ha-core
+    - name: Merge ha-knocki in core
+      run: |
+        ln -s "$(pwd)/ha-knocki/knocki" "$(pwd)/ha-core/homeassistant/components/knocki"
+        ln -s "$(pwd)/ha-knocki/tests" "$(pwd)/ha-core/tests/components/knocki"
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Run HA setup script
+      run: |
+        script/setup
+      working-directory: ./ha-core
+    - name: Install test dependencies
+      run: |
+        source venv/bin/activate
+        pip3 install -r requirements_test.txt
+        pip3 install sqlalchemy
+        pip3 install $(cat requirements_all.txt | grep -e ffmpeg== -e zeroconf==)
+      working-directory: ./ha-core
+    - name: Lint with Ruff
+      if: success() || failure()
+      run: |
+        source venv/bin/activate
+        set +e
+        ruff_output="$(ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki)"
+        ruff_exitcode=$?
+        echo "$ruff_output" \
+          | sed 's|ha-core/homeassistant/components/knocki|ha-knocki/knocki|' \
+          | sed 's|homeassistant/components/knocki|knocki|'
+        [ $ruff_exitcode -gt 0 ] && echo "Lint failure" && exit $ruff_exitcode
+      working-directory: ./ha-core
+    - name: Test with pytest
+      if: success() || failure()
+      run: |
+        source venv/bin/activate
+        pytest tests/components/knocki --doctest-modules --junitxml=junit/test-results.xml --cov=./homeassistant/components/knocki --cov-report=xml --cov-report=term
+      working-directory: ./ha-core
+    - name: Publish test Report
+      uses: mikepenz/action-junit-report@v4
+      if: success() || failure()
+      with:
+        report_paths: ./ha-core/junit/test-results.xml
+    - name: Publish coverage report
+      uses: MishaKav/pytest-coverage-comment@main
+      if: success() || failure()
+      with:
+        pytest-xml-coverage-path: ./ha-core/coverage.xml
+        junitxml-path: ./ha-core/junit/test-results.xml
