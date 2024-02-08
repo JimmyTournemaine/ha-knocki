@@ -38,7 +38,7 @@ jobs:
         ln -s "$(pwd)/ha-knocki/knocki" "$(pwd)/ha-core/homeassistant/components/knocki"
         ln -s "$(pwd)/ha-knocki/tests" "$(pwd)/ha-core/tests/components/knocki"
     - name: Set up Python 3.12
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5
       with:
         python-version: "3.12"
     - name: Run HA setup script
