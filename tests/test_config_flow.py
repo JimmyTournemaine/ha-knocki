@@ -31,7 +31,7 @@ async def test_form(hass: HomeAssistant, mock_setup_entry: AsyncMock) -> None:
     assert result["type"] == FlowResultType.CREATE_ENTRY
     assert result["title"] == "My Knocki"
     assert result["data"] == {}
-    assert result["options"] == {CONF_LOCAL_ONLY: True} # FIXME: Will fail the test
+    assert result["options"] == {CONF_LOCAL_ONLY: False}
 
 
 @pytest.mark.parametrize(
