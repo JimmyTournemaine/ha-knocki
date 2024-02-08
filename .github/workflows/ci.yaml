@@ -64,5 +64,5 @@ jobs:
     - name: Publish coverage report
       uses: MishaKav/pytest-coverage-comment@main
       with:
-        pytest-coverage-path: ./pytest-coverage.txt
-        junitxml-path: ./ha-core/coverage.xml
+        pytest-coverage-path: ./ha-core/coverage.xml
+        junitxml-path: ./ha-core/junit/test-results.xml
