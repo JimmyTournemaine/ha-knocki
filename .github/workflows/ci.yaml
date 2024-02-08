@@ -56,7 +56,9 @@ jobs:
       if: success() || failure()
       run: |
         source venv/bin/activate
-        ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki
+        ruff --output-format=github ./homeassistant/components/knocki ./tests/components/knocki \
+          | sed 's|ha-core/homeassistant/components/knocki|ha-knocki/knocki|' \
+          | sed 's|homeassistant/components/knocki|knocki|'
       working-directory: ./ha-core
     - name: Test with pytest
       if: success() || failure()
