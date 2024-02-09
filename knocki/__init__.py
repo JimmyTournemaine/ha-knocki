@@ -18,7 +18,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     hass.data.setdefault(DOMAIN, {})
 
     # 1. Create API instance
-    device = KnockiDevice(entry.title)
+    device = KnockiDevice.create_device({"title": entry.title})
 
     # 2. Validate the API connection (and authentication)
     # Nothing yet

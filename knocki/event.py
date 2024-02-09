@@ -8,6 +8,7 @@ from homeassistant.components.event import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DOMAIN, KNOCKI_EVENT_LISTENER, LOGGER
@@ -39,7 +40,6 @@ async def async_setup_entry(
     """Set up Knocki sensors based on a config entry."""
 
     device: KnockiDevice = hass.data[DOMAIN][entry.entry_id]
-
     sensors = [KnockEventEntity(device, sensor_type) for sensor_type in SENSOR_TYPES]
     async_add_entities(sensors, True)
 
@@ -61,7 +61,6 @@ class KnockEventEntity(EventEntity):
     @callback
     def _async_handle_event(self, event: str) -> None:
         """Handle knock event."""
-        LOGGER.info("Triggered event: %s", event)
         self._trigger_event(event)
         self.async_write_ha_state()
 

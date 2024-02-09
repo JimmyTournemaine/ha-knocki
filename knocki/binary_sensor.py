@@ -14,7 +14,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
 from .const import DOMAIN, LOGGER
-from .knocki import KnockiDevice, KnockiException
+from .knocki import KnockiDevice
 
 
 @dataclass(kw_only=True)

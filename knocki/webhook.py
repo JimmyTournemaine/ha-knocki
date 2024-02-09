@@ -1,17 +1,16 @@
 """Platform for the Knocki integration webhook."""
 
+from http import HTTPStatus
 from http.client import HTTPException
 
 from aiohttp import web
 
 from homeassistant import config_entries
+from homeassistant.components.knocki.event import SENSOR_TYPES as EVENT_SENSOR_TYPES
 from homeassistant.core import HomeAssistant
 
 from .const import CONF_LOCAL_ONLY, DOMAIN, LOGGER
 from .knocki import KnockiDevice
-
-HTTP_OK = 200
-HTTP_BAD_REQUEST = 400
 
 
 class KnockiWebhook:
@@ -58,13 +57,23 @@ class KnockiWebhook:
                 )
             )
 
+            if (
+                "gesture" not in payload
+                or payload["gesture"] not in EVENT_SENSOR_TYPES[0].event_types
+            ):
+                return web.Response(status=HTTPStatus.BAD_REQUEST)
+
             device.knock(payload["gesture"])
 
         except HTTPException as ex:
             LOGGER.error("Error processing webhook payload: %s", ex)
-            return web.Response(status=HTTP_BAD_REQUEST)
+            return web.Response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
 
-        return web.Response(text="Webhook received", status=HTTP_OK)
+        else:
+            return web.Response(
+                text=f"Knocked {payload['gesture']} on {device.title}",
+                status=HTTPStatus.OK,
+            )
 
     async def config_update_listener(
         self, hass: HomeAssistant, entry: config_entries.ConfigEntry
