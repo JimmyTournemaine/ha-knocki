@@ -1,9 +1,7 @@
 {
   "domain": "knocki",
   "name": "Knocki",
-  "codeowners": [
-    "@JimmyTournemaine"
-  ],
+  "codeowners": ["@JimmyTournemaine"],
   "config_flow": true,
   "dependencies": ["webhook"],
   "documentation": "https://github.com/JimmyTournemaine/ha-knocki",

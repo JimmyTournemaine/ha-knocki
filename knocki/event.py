@@ -1,7 +1,5 @@
 """Platform for the Knocki integration sensors."""
 from __future__ import annotations
-import asyncio
-from datetime import datetime
 
 from homeassistant.components.event import (
     EventDeviceClass,
@@ -47,6 +45,8 @@ async def async_setup_entry(
 
 
 class KnockEventEntity(EventEntity):
+    """Entity that represents a 'knock' event trigered from device."""
+
     def __init__(
         self,
         device: KnockiDevice,

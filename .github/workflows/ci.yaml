@@ -10,9 +10,8 @@ on:
   pull_request:
 
 permissions:
-  contents: read
+  contents: write
   checks: write
-  issues: write
   pull-requests: write
 
 jobs:
@@ -62,7 +61,7 @@ jobs:
         echo "$ruff_output" \
           | sed 's|ha-core/homeassistant/components/knocki|ha-knocki/knocki|' \
           | sed 's|homeassistant/components/knocki|knocki|'
-        [ $ruff_exitcode -gt 0 ] && echo "Lint failure" && exit $ruff_exitcode
+        exit $ruff_exitcode
       working-directory: ./ha-core
     - name: Test with pytest
       if: success() || failure()
