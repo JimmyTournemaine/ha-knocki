@@ -1,5 +1,5 @@
 {
   "battery": 100,
   "sleep_mode": false,
-  "turbo_mode": true
+  "turbo_mode": false
 }
