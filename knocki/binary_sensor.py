@@ -11,17 +11,16 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import StateType
 
 from .const import DOMAIN, LOGGER
 from .knocki import KnockiDevice, KnockiException
 
 
 @dataclass(kw_only=True)
-class KnockiBinarySensorEntityDescription(BinarySensorEntityDescription):
+class KnockiBinarySensorEntityDescription(BinarySensorEntityDescription):  # type: ignore[misc]
     """Describes Knocki sensor entity."""
 
-    value_fn: Callable[[KnockiDevice], StateType]
+    value_fn: Callable[[KnockiDevice], bool | None]
 
 
 SENSOR_TYPES: tuple[KnockiBinarySensorEntityDescription, ...] = (
@@ -52,6 +51,8 @@ async def async_setup_entry(
 class KnockiBinarySensorEntity(BinarySensorEntity):
     """Representation of a Knocki sensor."""
 
+    entity_description: KnockiBinarySensorEntityDescription
+
     def __init__(
         self,
         device: KnockiDevice,
@@ -68,9 +69,9 @@ class KnockiBinarySensorEntity(BinarySensorEntity):
         try:
             self._device.update()
         except KnockiException:
-            if self.available:  # Read current state, no need to prefix with _attr_
+            if self.available:
                 LOGGER.warning("Update failed for %s", self.entity_id)
-            self._attr_available = False  # Set property value
+            self._attr_available = False
             return
 
         self._attr_available = True

@@ -2,23 +2,23 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
+from typing import Any, Optional
 
 import voluptuous as vol
 
 from homeassistant import config_entries
-from homeassistant.components.knocki.knocki import KnockiDevice
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.exceptions import HomeAssistantError
 
 from .const import CONF_LOCAL_ONLY, DOMAIN
+from .knocki import KnockiDevice
 
 _LOGGER = logging.getLogger(__name__)
 
 
-def get_data_schema(config_entry: config_entries.ConfigEntry = None):
+def get_data_schema(config_entry: Optional[config_entries.ConfigEntry] = None):
     """Get data schema for init or configure steps."""
     schema_on_init = {vol.Required(CONF_NAME): str}
     schema_on_update = {
@@ -34,8 +34,7 @@ def get_data_schema(config_entry: config_entries.ConfigEntry = None):
 
     if config_entry is None:
         return vol.Schema(schema_on_init | schema_on_update)
-    else:
-        return vol.Schema(schema_on_update)
+    return vol.Schema(schema_on_update)
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):

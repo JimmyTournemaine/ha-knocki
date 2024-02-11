@@ -20,7 +20,7 @@ from .knocki import KnockiDevice, KnockiException
 
 
 @dataclass(kw_only=True)
-class KnockiSensorEntityDescription(SensorEntityDescription):
+class KnockiSensorEntityDescription(SensorEntityDescription):  # type: ignore[misc]
     """Describes Knocki sensor entity."""
 
     value_fn: Callable[[KnockiDevice], StateType]
@@ -49,6 +49,8 @@ async def async_setup_entry(
 
 class KnockiSensorEntity(SensorEntity):
     """Representation of a Knocki sensor."""
+
+    entity_description: KnockiSensorEntityDescription
 
     def __init__(
         self, device: KnockiDevice, entity_description: KnockiSensorEntityDescription
