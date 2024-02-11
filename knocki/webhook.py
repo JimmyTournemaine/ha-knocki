@@ -6,10 +6,10 @@ from http.client import HTTPException
 from aiohttp import web
 
 from homeassistant import config_entries
-from homeassistant.components.knocki.event import SENSOR_TYPES as EVENT_SENSOR_TYPES
 from homeassistant.core import HomeAssistant
 
 from .const import CONF_LOCAL_ONLY, DOMAIN, LOGGER
+from .event import SENSOR_TYPES as EVENT_SENSOR_TYPES
 from .knocki import KnockiDevice
 
 
@@ -57,9 +57,9 @@ class KnockiWebhook:
                 )
             )
 
-            if (
-                "gesture" not in payload
-                or payload["gesture"] not in EVENT_SENSOR_TYPES[0].event_types
+            if "gesture" not in payload or (
+                EVENT_SENSOR_TYPES[0].event_types is not None
+                and payload["gesture"] not in EVENT_SENSOR_TYPES[0].event_types
             ):
                 return web.Response(status=HTTPStatus.BAD_REQUEST)
 
@@ -69,11 +69,10 @@ class KnockiWebhook:
             LOGGER.error("Error processing webhook payload: %s", ex)
             return web.Response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
 
-        else:
-            return web.Response(
-                text=f"Knocked {payload['gesture']} on {device.title}",
-                status=HTTPStatus.OK,
-            )
+        return web.Response(
+            text=f"Knocked {payload['gesture']} on {device.title}",
+            status=HTTPStatus.OK,
+        )
 
     async def config_update_listener(
         self, hass: HomeAssistant, entry: config_entries.ConfigEntry
@@ -86,7 +85,7 @@ class KnockiWebhook:
 class KnockiWebhookHandler:
     """Handler for KnockiWebhook instances."""
 
-    webhooks = {}
+    webhooks: dict[str, KnockiWebhook] = {}
 
     @staticmethod
     def get_webhook(webhook_id) -> KnockiWebhook:

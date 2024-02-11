@@ -8,10 +8,9 @@ from homeassistant.components.event import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
-from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DOMAIN, KNOCKI_EVENT_LISTENER, LOGGER
+from .const import DOMAIN, KNOCKI_EVENT_LISTENER
 from .knocki import KnockiDevice
 
 SENSOR_TYPES: tuple[EventEntityDescription, ...] = (
@@ -45,7 +44,7 @@ async def async_setup_entry(
 
 
 class KnockEventEntity(EventEntity):
-    """Entity that represents a 'knock' event trigered from device."""
+    """Entity that represents a 'knock' event triggered from device."""
 
     def __init__(
         self,

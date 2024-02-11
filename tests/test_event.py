@@ -1,11 +1,8 @@
 """Tests for the Knocki binary sensor platform."""
-import pytest
-from homeassistant.components.knocki.const import LOGGER
-
-from homeassistant.components.sensor.const import SensorDeviceClass
-from homeassistant.const import ATTR_DEVICE_CLASS, ATTR_UNIT_OF_MEASUREMENT, PERCENTAGE
-from homeassistant.core import HomeAssistant
 from freezegun.api import FrozenDateTimeFactory
+import pytest
+
+from homeassistant.core import HomeAssistant
 
 
 @pytest.mark.usefixtures("init_integration")

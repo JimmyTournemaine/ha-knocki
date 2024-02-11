@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from dataclasses import dataclass
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -19,7 +18,6 @@ from .const import DOMAIN, LOGGER
 from .knocki import KnockiDevice, KnockiException
 
 
-@dataclass(kw_only=True)
 class KnockiSensorEntityDescription(SensorEntityDescription):
     """Describes Knocki sensor entity."""
 
@@ -49,6 +47,8 @@ async def async_setup_entry(
 
 class KnockiSensorEntity(SensorEntity):
     """Representation of a Knocki sensor."""
+
+    entity_description: KnockiSensorEntityDescription
 
     def __init__(
         self, device: KnockiDevice, entity_description: KnockiSensorEntityDescription

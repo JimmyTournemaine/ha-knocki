@@ -50,6 +50,7 @@ def mock_knocki(device_fixture: str) -> Generator[MagicMock, None, None]:
 
 @pytest.fixture
 async def webhook_client(hass_client) -> Generator[MagicMock, None, None]:
+    """Return a client to call webhooks."""
     return await hass_client()
 
 

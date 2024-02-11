@@ -2,8 +2,9 @@
 
 from collections.abc import Callable
 
-from homeassistant.components.knocki.const import LOGGER
 from homeassistant.util import slugify
+
+from .const import LOGGER
 
 
 class KnockiDevice:
@@ -18,7 +19,7 @@ class KnockiDevice:
     battery: float
     sleep_mode: bool
     turbo_mode: bool
-    event_listeners: [Callable[[str], None]]
+    event_listeners: dict[str, Callable[[str], None]]
 
     @staticmethod
     def create_device(dictionary):
@@ -49,7 +50,7 @@ class KnockiDevice:
         self.name = self.slug(value)
 
     def update(self):
-        """Update the device informations."""
+        """Update the device information."""
 
     def knock(self, gesture: str) -> None:
         """Someone knocked."""
@@ -66,5 +67,5 @@ class KnockiDevice:
         return self.event_listeners.pop(identifier)
 
 
-class KnockiException:
+class KnockiException(Exception):
     """Generic exception with Knocki API."""

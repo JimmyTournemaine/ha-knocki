@@ -18,7 +18,11 @@ ln -s /workspaces/ha-knocki/tests /workspaces/ha-core/tests/components/knocki
 ln -s /workspaces/ha-knocki/blueprints/automation/ /workspaces/ha-core/config/blueprints/automation/knocki
 ```
 
-To simplify your code navigation, you can "Add folder to workspace" and select `/workspaces/ha-knocki` (VS Code window may reload).
+Before any commit or push, run the following from `/workspaces/ha-knocki`:
+
+```bash
+pre-commit run --files $(find -L ./homeassistant/components/knocki ./tests/components/knocki)
+```
 
 ## Feature suggestions
 
