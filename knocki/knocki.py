@@ -66,6 +66,22 @@ class KnockiDevice:
         """Remove a listener for knock events."""
         return self.event_listeners.pop(identifier)
 
+    def enable_sleep_mode(self) -> None:
+        """Enable sleep mode."""
+        self.sleep_mode = True
+
+    def disable_sleep_mode(self) -> None:
+        """Disable sleep mode."""
+        self.sleep_mode = False
+
+    def enable_turbo_mode(self) -> None:
+        """Enable turbo mode."""
+        self.turbo_mode = True
+
+    def disable_turbo_mode(self) -> None:
+        """Disable turbo mode."""
+        self.turbo_mode = False
+
 
 class KnockiException(Exception):
     """Generic exception with Knocki API."""

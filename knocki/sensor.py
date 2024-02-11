@@ -15,8 +15,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 
-from .const import DOMAIN, LOGGER
-from .knocki import KnockiDevice, KnockiException
+from .const import DOMAIN
+from .knocki import KnockiDevice
 
 
 @dataclass(kw_only=True)
@@ -58,23 +58,8 @@ class KnockiSensorEntity(SensorEntity):
         """Initialize the sensor."""
         self._device = device
         self.entity_description = entity_description
-        self._attr_available = False  # This overrides the default
         self._attr_unique_id = f"{device.name}_{entity_description.key}"
-
-        LOGGER.info(self._attr_unique_id)
 
     def update(self) -> None:
         """Update entity state."""
-        try:
-            self._device.update()
-        except KnockiException:
-            if self.available:  # Read current state, no need to prefix with _attr_
-                LOGGER.warning("Update failed for %s", self.entity_id)
-            self._attr_available = False  # Set property value
-            return
-
-        self._attr_available = True
-        # We don't need to check if device available here
-        self._attr_native_value = self.entity_description.value_fn(
-            self._device
-        )  # Update "native_value" property
+        self._attr_native_value = self.entity_description.value_fn(self._device)
