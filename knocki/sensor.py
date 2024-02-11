@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from dataclasses import dataclass
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -18,7 +19,8 @@ from .const import DOMAIN, LOGGER
 from .knocki import KnockiDevice, KnockiException
 
 
-class KnockiSensorEntityDescription(SensorEntityDescription):
+@dataclass(kw_only=True)
+class KnockiSensorEntityDescription(SensorEntityDescription):  # type: ignore[misc]
     """Describes Knocki sensor entity."""
 
     value_fn: Callable[[KnockiDevice], StateType]
