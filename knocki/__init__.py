@@ -9,7 +9,7 @@ from .const import DOMAIN, KNOCKI_EVENT_LISTENER
 from .knocki import KnockiDevice
 from .webhook import KnockiWebhookHandler
 
-PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BINARY_SENSOR, Platform.EVENT]
+PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.SWITCH, Platform.EVENT]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
