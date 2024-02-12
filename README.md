@@ -16,6 +16,6 @@ Therefore, this repository is a first step of what could be developed in the fut
 Get the latest release and deploy it to your `custom_components` folder.
 Then, restart HA, you may now add Knocki from your integration settings.
 
-More detailled information can be found in the [Wiki](https://github.com/JimmyTournemaine/ha-knocki/wiki)
+More detailed information can be found in the [Wiki](https://github.com/JimmyTournemaine/ha-knocki/wiki)
 
 For the configuration in the Knocki app, you should refer to the [progress information in the wiki](https://github.com/JimmyTournemaine/ha-knocki/wiki/Progress#event) for now
