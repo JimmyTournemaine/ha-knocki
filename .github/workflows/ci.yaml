@@ -75,7 +75,7 @@ jobs:
         run: |
           source venv/bin/activate
           set +e
-          mypy_output="$(mypy homeassistant/components/knocki tests/components/knocki --no-error-summary)"
+          mypy homeassistant/components/knocki tests/components/knocki --no-error-summary > mypy-out.txt
           mypy_exitcode=$?
           python ../ha-knocki/.github/workflows/mypy-report.py mypy-out.txt
           exit $mypy_exitcode
