@@ -50,7 +50,7 @@ class KnockiDevice:
         self.name = self.slug(value)
 
     def update(self):
-        """Update the device information."""
+        """Update the device informations."""
 
     def knock(self, gesture: str) -> None:
         """Someone knocked."""
