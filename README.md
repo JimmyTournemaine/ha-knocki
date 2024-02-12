@@ -7,24 +7,15 @@
 ![gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)
 
 [Knocki](http://knocki.com/) is a small wireless smart device that transforms ordinary surfaces into touch controls.
-The Knocki developer do not provider any Open API yet.
 
+The Knocki developer do not provider any Open API yet.
 Therefore, this repository is a first step of what could be developed in the future.
 
 ## Installation
 
 Get the latest release and deploy it to your `custom_components` folder.
-Restart HA.
+Then, restart HA, you may now add Knocki from your integration settings.
 
-## Configuration
+More detailled information can be found in the [Wiki](https://github.com/JimmyTournemaine/ha-knocki/wiki)
 
-## Implementation
-
-As introduced above, there is no usable API at the moment. Thus, some sensors are only stubs for the moment but allow us to prepare for the future.
-
-### Integration sensors
-
-- sensor.battery: (stub) always unknown for now.
-- binary_sensor.sleep_mode: (stub) always unknown for now.
-- binary_sensor.turbo_mode: (stub) always unknown for now.
-- event.knock: When you knocked, the (well configured) knocki would trigger this event.
+For the configuration in the Knocki app, you should refer to the [progress information in the wiki](https://github.com/JimmyTournemaine/ha-knocki/wiki/Progress#event) for now
