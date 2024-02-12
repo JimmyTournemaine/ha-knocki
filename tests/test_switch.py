@@ -28,14 +28,20 @@ async def test_on_off(hass: HomeAssistant, switch: str) -> None:
     await hass.services.async_call(
         SWITCH_DOMAIN, "turn_off", {"entity_id": entity_id}, blocking=True
     )
-    assert hass.states.get(entity_id).state == STATE_OFF
+
+    state = hass.states.get(entity_id)
+    assert state is not None and state.state == STATE_OFF
 
     await hass.services.async_call(
         SWITCH_DOMAIN, "turn_on", {"entity_id": entity_id}, blocking=True
     )
-    assert hass.states.get(entity_id).state == STATE_ON
+
+    state = hass.states.get(entity_id)
+    assert state is not None and state.state == STATE_ON
 
     await hass.services.async_call(
         SWITCH_DOMAIN, "toggle", {"entity_id": entity_id}, blocking=True
     )
-    assert hass.states.get(entity_id).state == STATE_OFF
+
+    state = hass.states.get(entity_id)
+    assert state is not None and state.state == STATE_OFF

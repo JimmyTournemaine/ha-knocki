@@ -39,12 +39,10 @@ def device_fixture() -> str:
 
 
 @pytest.fixture
-def mock_knocki(device_fixture: str) -> Generator[MagicMock, None, None]:
+def mock_knocki(device_fixture: str) -> KnockiDevice:
     """Return a mocked WLED client."""
-
     knocki = KnockiDevice(load_json_object_fixture(f"{device_fixture}.json", DOMAIN))
     knocki.title = "Mock Title"
-    knocki.slug = "mock_title"
     return knocki
 
 
@@ -59,7 +57,7 @@ async def init_integration(
     hass: HomeAssistant,
     freezer: FrozenDateTimeFactory,
     mock_config_entry: MockConfigEntry,
-    mock_knocki: MagicMock,
+    mock_knocki: KnockiDevice,
 ) -> MockConfigEntry:
     """Set up the Knocki integration for testing."""
     mock_config_entry.add_to_hass(hass)

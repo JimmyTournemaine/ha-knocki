@@ -71,6 +71,15 @@ jobs:
             | sed 's|homeassistant/components/knocki|knocki|'
           exit $ruff_exitcode
         working-directory: ./ha-core
+      - name: Lint with Mypy
+        run: |
+          source venv/bin/activate
+          set +e
+          mypy homeassistant/components/knocki tests/components/knocki --no-error-summary > mypy-out.txt
+          mypy_exitcode=$?
+          python ../ha-knocki/.github/workflows/mypy-report.py mypy-out.txt
+          exit $mypy_exitcode
+        working-directory: ./ha-core
       - name: Test with pytest
         if: success() || failure()
         run: |
