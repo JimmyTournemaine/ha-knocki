@@ -73,33 +73,9 @@ jobs:
         working-directory: ./ha-core
       - name: Lint with Mypy
         run: |
-          format_mypy_error() {
-              local file_path=$1
-              local line_number=$2
-              local message=$3
-              local error_type=${4:-"error"}
-              echo "::${error_type} file=${file_path},line=${line_number},endLine=${line_number},title=${message}::${message}"
-          }
-          parse_mypy_output() {
-              local mypy_output=$1
-              local errors=()
-              while IFS= read -r line; do
-                  if [[ $line =~ ^(.*):([0-9]+): (warning|error): (.*)$ ]]; then
-                      file_path="${BASH_REMATCH[1]}"
-                      line_number="${BASH_REMATCH[2]}"
-                      error_type="${BASH_REMATCH[3]}"
-                      message="${BASH_REMATCH[4]}"
-                      errors+=("$(format_mypy_error "$file_path" "$line_number" "$message" "$error_type")")
-                  fi
-              done <<< "$mypy_output"
-              printf "%s\n" "${errors[@]}"
-          }
-          set +e
-          mypy_output=$(mypy homeassistant/components/knocki tests/components/knocki)
-          mypy_exitcode=$?
-          formatted_errors=$(parse_mypy_output "$mypy_output")
-          echo "$formatted_errors"
-          exit $mypy_exitcode
+          pip install mypy mypy-gitlab-code-quality
+          mypy homeassistant/components/knocki tests/components/knocki --no-error-summary > mypy-out.txt || true
+          mypy-gitlab-code-quality < mypy-out.txt > codequality.json
         working-directory: ./ha-core
       - name: Test with pytest
         if: success() || failure()
@@ -118,3 +94,7 @@ jobs:
         with:
           pytest-xml-coverage-path: ./ha-core/coverage.xml
           junitxml-path: ./ha-core/junit/test-results.xml
+    artifacts:
+      when: always
+      reports:
+        codequality: codequality.json
