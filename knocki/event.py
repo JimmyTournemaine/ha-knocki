@@ -10,25 +10,14 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DOMAIN, KNOCKI_EVENT_LISTENER
+from .const import DOMAIN, EVENT_TYPES, KNOCKI_EVENT_LISTENER
 from .knocki import KnockiDevice
 
 SENSOR_TYPES: tuple[EventEntityDescription, ...] = (
     EventEntityDescription(
         key="knock",
         device_class=EventDeviceClass.BUTTON,
-        event_types=[
-            "3taps",
-            "4taps",
-            "5taps",
-            "6taps",
-            "2taps_2taps",
-            "2taps_4taps",
-            "2taps_5taps",
-            "2taps_3taps_2taps",
-            "2taps_3taps_3taps",
-            "2taps_3taps_4taps",
-        ],
+        event_types=EVENT_TYPES,
     ),
 )
 

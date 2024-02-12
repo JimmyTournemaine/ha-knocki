@@ -5,12 +5,18 @@ import re
 import sys
 
 def format_mypy_error(file_path, line_number, message, error_type="error"):
+    file_path = normalize_file_path(file_path)
     return f"::{error_type} file={file_path},line={line_number},endLine={line_number},title={message}::{message}"
 
 def parse_mypy_output_from_file(file_path):
     with open(file_path, 'r') as file:
         mypy_output = file.read()
     return parse_mypy_output(mypy_output)
+
+def normalize_file_path(file_path):
+    file_path = file_path.replace("homeassistant/components/knocki", "knocki")
+    file_path = file_path.replace("tests/components/knocki", "tests")
+    return file_path
 
 def parse_mypy_output(mypy_output):
     errors = []
