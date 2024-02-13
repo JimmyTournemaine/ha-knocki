@@ -1,7 +1,7 @@
 """Tests for the Knocki switch platform."""
 import pytest
 
-from homeassistant.components.switch.const import DOMAIN as SWITCH_DOMAIN
+from homeassistant.components.switch import DOMAIN as SWITCH_DOMAIN
 from homeassistant.const import STATE_OFF, STATE_ON
 from homeassistant.core import HomeAssistant
 

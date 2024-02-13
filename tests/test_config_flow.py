@@ -10,7 +10,7 @@ from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 
-from tests.common import MockConfigEntry
+from tests.common import MockConfigEntry # pylint: disable=no-name-in-module
 
 
 async def test_init_form(hass: HomeAssistant, mock_setup_entry: AsyncMock) -> None:
@@ -48,7 +48,7 @@ async def test_form_name_already_exists(
     with patch(
         "homeassistant.components.knocki.config_flow.ConfigFlow.validate_unique",
         side_effect=NameAlreadyExists,
-    ) as mock_setup_entry:
+    ) as mock_validate_unique:
         result = await hass.config_entries.flow.async_init(
             DOMAIN, context={"source": config_entries.SOURCE_USER}
         )
@@ -63,7 +63,7 @@ async def test_form_name_already_exists(
     # THEN
     assert result["type"] == FlowResultType.FORM
     assert result["errors"] == {"base": "already_configured"}
-    mock_setup_entry.assert_called_once()
+    mock_validate_unique.assert_called_once()
 
 
 async def test_form_unexpected(
@@ -76,7 +76,7 @@ async def test_form_unexpected(
     with patch(
         "homeassistant.components.knocki.config_flow.ConfigFlow.validate_unique",
         side_effect=Exception,
-    ) as mock_setup_entry:
+    ) as mock_validate_unique:
         result = await hass.config_entries.flow.async_init(
             DOMAIN, context={"source": config_entries.SOURCE_USER}
         )
@@ -91,7 +91,7 @@ async def test_form_unexpected(
     # THEN
     assert result["type"] == FlowResultType.FORM
     assert result["errors"] == {"base": "unknown"}
-    mock_setup_entry.assert_called_once()
+    mock_validate_unique.assert_called_once()
 
 
 async def test_option_flow(

@@ -3,7 +3,7 @@ from homeassistant.components.knocki.const import DOMAIN
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.core import HomeAssistant
 
-from tests.common import MockConfigEntry
+from tests.common import MockConfigEntry # pylint: disable=no-name-in-module
 
 
 async def test_unload_entry(
