@@ -80,6 +80,11 @@ jobs:
           python ../ha-knocki/.github/workflows/mypy-report.py mypy-out.txt
           exit $mypy_exitcode
         working-directory: ./ha-core
+      - name: Lint with MyPylint
+        run: |
+          source venv/bin/activate
+          pylint --ignore-missing-annotations=y --ignore-wrong-coordinator-module=y homeassistant/components/knocki tests/components/knocki
+        working-directory: ./ha-core
       - name: Test with pytest
         if: success() || failure()
         run: |
