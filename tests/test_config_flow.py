@@ -10,7 +10,7 @@ from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 
-from tests.common import MockConfigEntry # pylint: disable=no-name-in-module
+from tests.common import MockConfigEntry  # pylint: disable=no-name-in-module
 
 
 async def test_init_form(hass: HomeAssistant, mock_setup_entry: AsyncMock) -> None:

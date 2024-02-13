@@ -10,7 +10,10 @@ from homeassistant.components.knocki.knocki import KnockiDevice
 from homeassistant.const import CONF_NAME
 from homeassistant.core import HomeAssistant
 
-from tests.common import MockConfigEntry, load_json_object_fixture # pylint: disable=no-name-in-module
+from tests.common import (  # pylint: disable=no-name-in-module
+    MockConfigEntry,
+    load_json_object_fixture,
+)
 
 
 @pytest.fixture
