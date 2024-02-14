@@ -28,7 +28,7 @@ jobs:
       - uses: "actions/checkout@v4"
       - uses: codespell-project/actions-codespell@v2
         with:
-          ignore_words_list: additionals,alle,alot,bund,currenty,datas,farenheit,falsy,fo,haa,hass,iif,incomfort,ines,ist,nam,nd,pres,pullrequests,resset,rime,ser,serie,te,technik,ue,unsecure,withing,zar
+          ignore_words_list: hass
   qa:
     name: Test and Lint
     runs-on: ubuntu-latest

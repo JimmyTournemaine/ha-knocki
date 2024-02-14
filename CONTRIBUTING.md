@@ -17,25 +17,16 @@ Then, from your development container:
 git clone git@<your-fork> /workspaces/ha-knocki
 ln -s /workspaces/ha-knocki/knocki /workspaces/ha-core/homeassistant/components/knocki
 ln -s /workspaces/ha-knocki/tests /workspaces/ha-core/tests/components/knocki
-ln -s /workspaces/ha-knocki/blueprints/automation/ /workspaces/ha-core/config/blueprints/automation/knocki
+ln -s /workspaces/ha-knocki/blueprints/automation/ /workspaces/ha-core/config/blueprints/automation/
 ```
 Those links are used to develop the integration with the same level of standards as Home Assistant internal integrations.
 
 ### Pre-Commit Hooks
 
-Before any commit or push, run the following from `/workspaces/ha-knocki`:
+Before any commit or push, run the following:
 
 ```bash
-pre-commit run --files $(find -L ./homeassistant/components/knocki ./tests/components/knocki)
-```
-
-### Check unit tests
-
-You should check that no unit test is failing and check your code coverage.
-Because of the symlinks, you should run the following to benefit from VSCode plugins.
-
-```bash
-pytest tests/components/knocki --doctest-modules --cov=./homeassistant/components/knocki --cov-report=xml --cov-report=term; sed -i 's|<source>/workspaces/ha-knocki/knocki|<source>/workspaces/ha-core/homeassistant/components/knocki|g' coverage.xml
+/workspaces/ha-knocki/scripts/pre-commit.sh
 ```
 
 ## Feature suggestions
