@@ -103,6 +103,7 @@ jobs:
           pytest-xml-coverage-path: ./ha-core/coverage.xml
           junitxml-path: ./ha-core/junit/test-results.xml
   package:
+    name: Package
     runs-on: "ubuntu-latest"
     needs: [hassfest, codespell, qa]
     steps:
