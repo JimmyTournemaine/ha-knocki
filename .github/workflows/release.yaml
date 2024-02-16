@@ -2,7 +2,7 @@ on:
   workflow_run:
     workflows: [CI]
     types: [completed]
-    branches: [main]
+    #branches: [main] # FIXME
 
 jobs:
   release:
